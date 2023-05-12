@@ -4,6 +4,8 @@ FILE=`date +"%Y-%m-%d-%H_%M"`${FILE_SUFFIX}.tar.gz
 OUTPUT_FILE=/backups/${FILE}
 
 mkdir -p /backups
+echo $ES_PORT
+echo 9200:localhost:${ES_PORT}
 ssh -oStrictHostKeyChecking=no -o ExitOnForwardFailure=yes -f -L 9200:localhost:${ES_PORT} ${SSH_USERNAME}@${SSH_HOST} -p ${SSH_PORT} sleep 10
 
 elasticdump --input=http://${ES_USERNAME}:${ES_PASSWORD}@localhost:9200/  --output=/backups/data.json --type=data
