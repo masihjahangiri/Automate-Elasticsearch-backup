@@ -1,5 +1,9 @@
 FROM node:20-alpine3.16
 RUN apk update && apk upgrade
+RUN apk add --no-cache \
+  openssh \
+  rsync \
+  tar
 RUN npm install elasticdump -g
 
 
