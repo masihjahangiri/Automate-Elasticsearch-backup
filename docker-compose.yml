@@ -3,7 +3,7 @@ version: '3.3'
 
 services:
   cronjob:
-    container_name: cronjob-alpine
+    container_name: es-backup-cronjob
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,6 +13,7 @@ services:
     env_file:
       - .env
   fileBrowser:
+    container_name: es-backup-filebrowser
     image: filebrowser/filebrowser
     restart: always
     ports:
