@@ -1,0 +1,30 @@
+
+version: '3.3'
+
+services:
+  cronjob:
+    container_name: cronjob-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - backups:/backups
+    env_file:
+      - .env
+  fileBrowser:
+    image: filebrowser/filebrowser
+    restart: always
+    ports:
+      - 8888:80
+    volumes:
+        - backups:/srv
+
+volumes:
+  backups:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${BACKUP_PATH}
+      o: bind
+
